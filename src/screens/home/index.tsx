@@ -1,18 +1,33 @@
-import { View, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
+import { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, FlatList, Alert } from "react-native";
 import { Participant } from "../../components/Participant";
 import { styles } from "./styles";
 export function Home() {
-  const participants = ["Harry", "Hermione", "Ron", "Gina", "Nevile", "Luna", "Fred", "Jorge", "Olívio", "Malfoy", "Crable", "Goyle", "Percy", "Anna", "Cedrico"];
+  const [participants, setParticipants] = useState(["Harry"]);
 
   function handleParticipantAdd() {
+    if(participants.includes('Malfoy')){
+      return Alert.alert('Participante já existente', 'Não foi possível adicionar novo participante')
+    }
+    setParticipants(prevState => [...prevState,'Ana'])
     console.log("Participante adicionado com sucesso!");
   }
   function handleParticipantRemove(name: string) {
+    Alert.alert('Tem certeza?', `Remover o participante ${name}?`,[
+      {
+        text: 'Sim',
+        onPress: () => Alert.alert('Removido!')
+      },
+      {
+        text: 'Não',
+        style: 'cancel'
+      }
+    ])
     console.log(`Participante ${name} removido com sucesso!`);
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.eventTitle}>Quadrilha</Text>
+      <Text style={styles.eventTitle}>Quadrilha de Hogwarts</Text>
       <Text style={styles.eventDate}>02 de fevereiro de 2023</Text>
       <View style={styles.form}>
         <TextInput
@@ -29,13 +44,13 @@ export function Home() {
       ListEmptyComponent={() => (
         <Text style={styles.textListEmptyComponent}>Ninguém chegou no evento ainda? Adicione pessoas à sua lista!</Text>
       )}
-      data={[]}
+      data={participants}
       keyExtractor={item => item}
       renderItem={({ item }) => (
         <Participant
         key={item}
         name={item}
-        onRemove={() => {handleParticipantRemove('item')}}
+        onRemove={() => {handleParticipantRemove(item)}}
         
         />
         )}
