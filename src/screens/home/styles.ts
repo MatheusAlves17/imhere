@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
   },
   input:{
     backgroundColor: '#272727',
+    color:'#f6f6f6',
     padding: 16,
     height: 54,
     flex: 1,
