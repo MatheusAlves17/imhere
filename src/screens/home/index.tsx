@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Participant } from "../../components/Participant";
 import { styles } from "./styles";
+
 export function Home() {
   const [participants, setParticipants] = useState<string[]>([]);
   const [participantName, setParticipantName] = useState('');
@@ -24,6 +25,7 @@ export function Home() {
     setParticipantName('')
     console.log("Participante adicionado com sucesso!");
   }
+
   function handleParticipantRemove(name: string) {
     Alert.alert("Tem certeza?", `Remover o participante ${name}?`, [
       {
@@ -37,6 +39,7 @@ export function Home() {
     ]);
     console.log(`Participante ${name} removido com sucesso!`);
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventTitle}>Quadrilha de Hogwarts</Text>
@@ -49,7 +52,10 @@ export function Home() {
           onChangeText={setParticipantName}
           value={participantName}
         />
-        <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleParticipantAdd}
+        >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
