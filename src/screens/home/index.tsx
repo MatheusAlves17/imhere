@@ -28,7 +28,7 @@ export function Home() {
     Alert.alert("Tem certeza?", `Remover o participante ${name}?`, [
       {
         text: "Sim",
-        onPress: () => Alert.alert("Removido!"),
+        onPress: () => setParticipants(prevState => prevState.filter((participant) => participant !== name)),
       },
       {
         text: "Não",
